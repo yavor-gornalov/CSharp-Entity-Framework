@@ -17,7 +17,7 @@ namespace SoftUni.Data
         public virtual DbSet<Address> Addresses { get; set; } = null!;
         public virtual DbSet<Department> Departments { get; set; } = null!;
         public virtual DbSet<Employee> Employees { get; set; } = null!;
-        public virtual DbSet<EmployeeProject> EmployeeProjects { get; set; } = null!;
+        public virtual DbSet<EmployeeProject> EmployeesProjects { get; set; } = null!;
         public virtual DbSet<Project> Projects { get; set; } = null!;
         public virtual DbSet<Town> Towns { get; set; } = null!;
 
