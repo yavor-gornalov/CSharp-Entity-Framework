@@ -6,9 +6,12 @@ namespace SoftUni
     {
         static void Main(string[] args)
         {
-            SoftUniContext context = new SoftUniContext();
+            SoftUniContext context = new();
+
+            //Test SoftUniContext
             var firstEmpolyee = context.Employees.Find(1);
-            Console.WriteLine(firstEmpolyee.FirstName + ' ' + firstEmpolyee.LastName);
+
+            Console.WriteLine(firstEmpolyee!.FirstName + ' ' + firstEmpolyee.LastName);
         }
     }
 }
