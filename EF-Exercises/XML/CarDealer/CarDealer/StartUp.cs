@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using CarDealer.Data;
+using CarDealer.DTOs.Export;
 using CarDealer.DTOs.Import;
 using CarDealer.Models;
 using Microsoft.EntityFrameworkCore;
 using System.Globalization;
-using System.IO;
 using System.Text;
 using System.Xml.Serialization;
 
@@ -38,6 +38,23 @@ public class StartUp
 		// string inputSalesXml = File.ReadAllText(_DatasetsPath + "sales.xml");
 		// Console.WriteLine(ImportSales(context, inputSalesXml));
 
+		// 14. Export Cars With Distance 
+		// Console.WriteLine(GetCarsWithDistance(context));
+
+		// 15. Export Cars From Make BMW
+		// Console.WriteLine(GetCarsFromMakeBmw(context));
+
+		// 16. Export Local Suppliers
+		// Console.WriteLine(GetLocalSuppliers(context));
+
+		// 17. Export Cars with Their List of Parts
+		// Console.WriteLine(GetCarsWithTheirListOfParts(context));
+
+		// 18. Export Total Sales By Customer
+		// Console.WriteLine(GetTotalSalesByCustomer(context));
+
+		// 19. Export Sales With Applied Discount
+		Console.WriteLine(GetSalesWithAppliedDiscount(context));
 	}
 
 	// 09.Import Suppliers
@@ -157,6 +174,130 @@ public class StartUp
 		return $"Successfully imported {sales.Count}";
 	}
 
+	// 14. Export Cars With Distance 
+	public static string GetCarsWithDistance(CarDealerContext context)
+	{
+		var cars = context.Cars
+			.Where(c => c.TraveledDistance > 2_000_000)
+			.OrderBy(c => c.Make)
+			.ThenBy(c => c.Model)
+			.Take(10)
+			.AsNoTracking()
+			.Select(c => new ExportCarWithDistanceDTO
+			{
+				Make = c.Make,
+				Model = c.Model,
+				TraveledDistance = c.TraveledDistance
+			})
+			.ToList();
+
+		return SerializeToXml(cars, "cars");
+	}
+
+	// 15. Export Cars From Make BMW
+	public static string GetCarsFromMakeBmw(CarDealerContext context)
+	{
+		var cars = context.Cars
+			.Where(c => c.Make == "BMW")
+			.OrderBy(c => c.Model)
+			.ThenByDescending(c => c.TraveledDistance)
+			.Select(c => new ExportBmwCarDTO
+			{
+				Id = c.Id,
+				Model = c.Model,
+				TraveledDistance = c.TraveledDistance
+			})
+			.ToList();
+
+		return SerializeToXml(cars, "cars");
+	}
+
+	// 16. Export Local Suppliers
+	public static string GetLocalSuppliers(CarDealerContext context)
+	{
+		var supliers = context.Suppliers
+			.Where(s => !s.IsImporter)
+			.Select(s => new ExportLocalSupplierDTO
+			{
+				Id = s.Id,
+				Name = s.Name,
+				PartsCount = s.Parts.Count,
+			})
+			.ToList();
+
+		return SerializeToXml(supliers, "suppliers");
+	}
+
+	// 17. Export Cars With Their List Of Parts
+	public static string GetCarsWithTheirListOfParts(CarDealerContext context)
+	{
+		var cars = context.Cars
+			.OrderByDescending(c => c.TraveledDistance)
+			.ThenBy(c => c.Model)
+			.Take(5)
+			.AsNoTracking()
+			.Select(c => new ExportCarWithPartsDTO
+			{
+				Make = c.Make,
+				Model = c.Model,
+				TraveledDistance = c.TraveledDistance,
+				Parts = c.PartsCars
+					.Select(pc => new ExportCarPartDTO
+					{
+						Name = pc.Part.Name,
+						Price = pc.Part.Price,
+					})
+					.OrderByDescending(p => p.Price)
+					.ToArray()
+			})
+			.ToList();
+
+		return SerializeToXml(cars, "cars");
+	}
+
+	// 18. Export Total Sales By Customer
+	public static string GetTotalSalesByCustomer(CarDealerContext context)
+	{
+		var customers = context.Customers
+			.Where(c => c.Sales.Any(s => s.Car != null))
+			.Select(c => new ExportCustomerWithCarDTO
+			{
+				FullName = c.Name,
+				CarsBoughtCount = c.Sales.Count,
+				TotalMoneySpent = c.Sales
+					.Sum(s => s.Car.PartsCars
+					.Sum(p => Math.Round(c.IsYoungDriver
+							? p.Part.Price * 0.95m
+							: p.Part.Price, 2)))
+			})
+			.OrderByDescending(c => c.TotalMoneySpent)
+			.ToList();
+
+		return SerializeToXml(customers, "customers");
+	}
+
+	// 19. Export Sales With Applied Discount
+	public static string GetSalesWithAppliedDiscount(CarDealerContext context)
+	{
+		var sales = context.Sales
+			.Select(s => new ExportSaleDTO
+			{
+				Car = new ExportCarDTO
+				{
+					Make = s.Car.Make,
+					Model = s.Car.Model,
+					TraveledDistance = s.Car.TraveledDistance
+				},
+				Discount = s.Discount,
+				CustomerName = s.Customer.Name,
+				Price = s.Car.PartsCars.Sum(pc => pc.Part.Price),
+				PriceWithDiscount = ((100 - s.Discount) * s.Car.PartsCars.Sum(pc => pc.Part.Price)) / 100
+			})
+			.ToList();
+
+		return SerializeToXml(sales, "sales");
+	}
+
 	// Helpers
 	private static Mapper GetMapper()
 		=> new(new MapperConfiguration(c => c.AddProfile<CarDealerProfile>()));
@@ -182,7 +323,7 @@ public class StartUp
 
 		XmlSerializer xmlSerializer = new(typeof(T), rootAttribute);
 
-		StringBuilder stringBuilder = new StringBuilder();
+		StringBuilder stringBuilder = new();
 
 		StringWriter stringWriter = new(stringBuilder, CultureInfo.InvariantCulture);
 
