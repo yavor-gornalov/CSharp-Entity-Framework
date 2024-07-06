@@ -1,9 +1,9 @@
 ﻿namespace Theatre.DataProcessor
 {
-	using Newtonsoft.Json;
+	//using Newtonsoft.Json;
 	using System.Globalization;
+	using System.Text.Json;
 	using Theatre.Data;
-	using Theatre.Data.Models.Enums;
 	using Theatre.DataProcessor.ExportDto;
 	using Theatre.Helpers;
 
@@ -34,7 +34,11 @@
 				.ThenBy(th => th.Name)
 				.ToList();
 
-			return JsonConvert.SerializeObject(theatres, Formatting.Indented);
+			// return JsonConvert.SerializeObject(theatres, Formatting.Indented);
+			return JsonSerializer.Serialize(theatres, new JsonSerializerOptions
+			{
+				WriteIndented = true
+			});
 		}
 
 		public static string ExportPlays(TheatreContext context, double raiting)
