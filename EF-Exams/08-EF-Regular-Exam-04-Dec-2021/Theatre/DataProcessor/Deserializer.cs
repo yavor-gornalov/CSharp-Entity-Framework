@@ -1,12 +1,10 @@
 ﻿namespace Theatre.DataProcessor
 {
-	using Newtonsoft.Json;
+	//using Newtonsoft.Json;
 	using System.ComponentModel.DataAnnotations;
-	using System.Diagnostics;
 	using System.Globalization;
-	using System.IO;
 	using System.Text;
-	using System.Xml.Linq;
+	using System.Text.Json;
 	using Theatre.Data;
 	using Theatre.Data.Models;
 	using Theatre.Data.Models.Enums;
@@ -109,7 +107,8 @@
 			var theatres = new List<Theatre>();
 			var sb = new StringBuilder();
 
-			var theatresInfo = JsonConvert.DeserializeObject<ImportTheatreDto[]>(jsonString);
+			//var theatresInfo = JsonConvert.DeserializeObject<ImportTheatreDto[]>(jsonString);
+			var theatresInfo = JsonSerializer.Deserialize<ImportTheatreDto[]>(jsonString);
 
 			foreach (var th in theatresInfo)
 			{
