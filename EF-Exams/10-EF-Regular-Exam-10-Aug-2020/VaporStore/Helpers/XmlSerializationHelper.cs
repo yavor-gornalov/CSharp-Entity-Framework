@@ -16,7 +16,7 @@ public class XmlSerializationHelper
 	/// <returns>Deserialized object of type T, or default value if deserialization fails.</returns>
 	/// <exception cref="ArgumentNullException">Thrown if obj or rootName is null.</exception>
 	/// <exception cref="InvalidOperationException">Thrown if the serialization fails.</exception>
-	public static T Deserialize<T>(string inputXml, string rootName)
+	public static T? Deserialize<T>(string inputXml, string rootName)
 	{
 		if (string.IsNullOrEmpty(inputXml))
 			throw new ArgumentException("Input XML cannot be null or empty.", nameof(inputXml));
@@ -30,7 +30,7 @@ public class XmlSerializationHelper
 			XmlSerializer xmlSerializer = new(typeof(T), xmlRoot);
 
 			using var reader = new StringReader(inputXml);
-			return (T)xmlSerializer.Deserialize(reader);
+			return (T?)xmlSerializer.Deserialize(reader);
 		}
 		catch (XmlException ex)
 		{
