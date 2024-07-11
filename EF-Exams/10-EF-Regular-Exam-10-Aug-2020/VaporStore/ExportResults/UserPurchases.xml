@@ -86,7 +86,7 @@
         <Date>2018-06-22 12:45</Date>
         <Game title="Warframe">
           <Genre>Violent</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
@@ -100,7 +100,7 @@
         <Date>2016-04-10 17:40</Date>
         <Game title="Yu-Gi-Oh! Duel Links">
           <Genre>Free to Play</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
       <Purchase>
@@ -202,7 +202,7 @@
         <Date>2017-02-04 00:11</Date>
         <Game title="Brawlhalla">
           <Genre>Action</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
       <Purchase>
@@ -234,7 +234,7 @@
         <Date>2016-12-03 23:16</Date>
         <Game title="Neverwinter">
           <Genre>Adventure</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
       <Purchase>
@@ -387,7 +387,7 @@
         <Date>2017-09-25 05:40</Date>
         <Game title="Warface">
           <Genre>Action</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
@@ -401,7 +401,7 @@
         <Date>2016-08-29 05:17</Date>
         <Game title="Path of Exile">
           <Genre>Nudity</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
       <Purchase>
@@ -424,11 +424,11 @@
         <Date>2017-10-30 10:16</Date>
         <Game title="Neverwinter">
           <Genre>Adventure</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
-    <TotalSpent>0</TotalSpent>
+    <TotalSpent>0.00</TotalSpent>
   </User>
   <User username="ehellard">
     <Purchases>
@@ -438,11 +438,11 @@
         <Date>2017-08-26 16:56</Date>
         <Game title="Brawlhalla">
           <Genre>Action</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
-    <TotalSpent>0</TotalSpent>
+    <TotalSpent>0.00</TotalSpent>
   </User>
   <User username="fdedam">
     <Purchases>
@@ -452,7 +452,7 @@
         <Date>2016-04-16 14:45</Date>
         <Game title="Brawlhalla">
           <Genre>Action</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
       <Purchase>
@@ -461,11 +461,11 @@
         <Date>2016-04-25 13:53</Date>
         <Game title="Team Fortress 2">
           <Genre>Action</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
-    <TotalSpent>0</TotalSpent>
+    <TotalSpent>0.00</TotalSpent>
   </User>
   <User username="fstoter">
     <Purchases>
@@ -475,11 +475,11 @@
         <Date>2016-02-02 19:38</Date>
         <Game title="Warframe">
           <Genre>Violent</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
-    <TotalSpent>0</TotalSpent>
+    <TotalSpent>0.00</TotalSpent>
   </User>
   <User username="mdickson">
     <Purchases>
@@ -489,11 +489,11 @@
         <Date>2017-08-25 06:12</Date>
         <Game title="Warframe">
           <Genre>Violent</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
-    <TotalSpent>0</TotalSpent>
+    <TotalSpent>0.00</TotalSpent>
   </User>
   <User username="rabbison">
     <Purchases>
@@ -503,7 +503,7 @@
         <Date>2016-09-08 17:07</Date>
         <Game title="SMITE">
           <Genre>Action</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
       <Purchase>
@@ -512,10 +512,10 @@
         <Date>2017-12-05 17:03</Date>
         <Game title="Path of Exile">
           <Genre>Nudity</Genre>
-          <Price>0</Price>
+          <Price>0.00</Price>
         </Game>
       </Purchase>
     </Purchases>
-    <TotalSpent>0</TotalSpent>
+    <TotalSpent>0.00</TotalSpent>
   </User>
 </Users>
