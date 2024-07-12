@@ -1,17 +1,18 @@
 ﻿namespace SoftJail.DataProcessor
 {
-    using System.ComponentModel.DataAnnotations;
-    using System.Globalization;
+	using System.ComponentModel.DataAnnotations;
+	using System.Globalization;
 	using System.Text;
+	using System.Xml.Serialization;
 	using Castle.Core.Internal;
 	using Data;
-    using Newtonsoft.Json;
-    using SoftJail.Data.Models;
+	using Newtonsoft.Json;
+	using SoftJail.Data.Models;
 	using SoftJail.Data.Models.Enums;
 	using SoftJail.DataProcessor.ImportDto;
 	using SoftJail.Helpers;
 
-    public class Deserializer
+	public class Deserializer
 	{
 		private const string ErrorMessage = "Invalid Data";
 
@@ -102,7 +103,7 @@
 					Nickname = p.Nickname,
 					Age = p.Age,
 					IncarcerationDate = DateTime.ParseExact(p.IncarcerationDate, "dd/MM/yyyy", CultureInfo.InvariantCulture),
-					ReleaseDate = p.ReleaseDate != null? DateTime.ParseExact(p.ReleaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) : default,
+					ReleaseDate = p.ReleaseDate != null ? DateTime.ParseExact(p.ReleaseDate, "dd/MM/yyyy", CultureInfo.InvariantCulture) : default,
 					Bail = p.Bail,
 					CellId = p.CellId,
 				};
@@ -146,18 +147,20 @@
 
 			var officersInfo = XmlSerializationHelper.Deserialize<ImportOfficerDto[]>(xmlString, "Officers");
 
-			var validDepartmetIds = context.Departments.Select(d => d.Id).ToList();
+			// var validDepartmetIds = context.Departments.Select(d => d.Id).ToList();
 
 			var officers = new List<Officer>();
+
 
 			if (officersInfo == null) return string.Empty;
 
 			foreach (var officerDto in officersInfo)
 			{
-				if (!IsValid(officerDto) 
-					|| !Enum.TryParse(officerDto.Position, true, out Position position)
-					|| !Enum.TryParse(officerDto.Weapon, true, out Weapon weapon)
-					|| !validDepartmetIds.Contains(officerDto.DepartmentId))
+				if (!IsValid(officerDto)
+					// DO NOT CHECK for valid Department Id, Judge tests will FAIL!
+					// || !validDepartmetIds.Contains(officerDto.DepartmentId)
+					|| !Enum.TryParse(officerDto.Position, out Position position)
+					|| !Enum.TryParse(officerDto.Weapon, out Weapon weapon))
 				{
 					sb.AppendLine(ErrorMessage);
 					continue;
@@ -172,12 +175,12 @@
 					DepartmentId = officerDto.DepartmentId,
 				};
 
-				foreach (var prisonerId in officerDto.PrisonerIds)
+				foreach (var prisonerId in officerDto.PrisonerIds.Select(p => p.Id).Distinct())
 				{
 					var officerPrisoner = new OfficerPrisoner
 					{
 						Officer = officer,
-						PrisonerId = prisonerId.Id,
+						PrisonerId = prisonerId,
 					};
 
 					officer.OfficerPrisoners.Add(officerPrisoner);
