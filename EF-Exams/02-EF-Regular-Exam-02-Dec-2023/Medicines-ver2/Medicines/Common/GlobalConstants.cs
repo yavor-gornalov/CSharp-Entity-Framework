@@ -19,4 +19,7 @@ public class GlobalConstants
 	// Patient
 	public const int PatientFullNameMinLength = 5;
 	public const int PatientFullNameMaxLength = 100;
+
+	// DateTime
+	public const string DateTimeDefaultFormat = "yyyy-MM-dd";
 }
