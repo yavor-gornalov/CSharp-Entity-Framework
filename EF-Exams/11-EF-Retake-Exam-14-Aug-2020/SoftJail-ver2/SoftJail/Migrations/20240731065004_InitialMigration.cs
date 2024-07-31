@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace SoftJail.Migrations
 {
-    public partial class Initial : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -77,7 +77,7 @@ namespace SoftJail.Migrations
                     Age = table.Column<int>(type: "int", nullable: false),
                     IncarcerationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
                     ReleaseDate = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Bail = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    Bail = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CellId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>

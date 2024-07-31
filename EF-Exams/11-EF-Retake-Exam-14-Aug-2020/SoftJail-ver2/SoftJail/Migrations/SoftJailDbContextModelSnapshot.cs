@@ -152,7 +152,7 @@ namespace SoftJail.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Bail")
+                    b.Property<decimal?>("Bail")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("CellId")

@@ -26,9 +26,8 @@ public class Prisoner
 
 	public DateTime? ReleaseDate { get; set; }
 
-	[Required]
 	[Column(TypeName = "decimal(18,2)")]
-	public decimal Bail { get; set; }
+	public decimal? Bail { get; set; }
 
 	[Required]
 	public int CellId { get; set; }

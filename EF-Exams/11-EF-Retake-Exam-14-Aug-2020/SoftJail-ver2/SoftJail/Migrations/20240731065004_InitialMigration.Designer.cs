@@ -12,8 +12,8 @@ using SoftJail.Data;
 namespace SoftJail.Migrations
 {
     [DbContext(typeof(SoftJailDbContext))]
-    [Migration("20240730123436_Initial")]
-    partial class Initial
+    [Migration("20240731065004_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -154,7 +154,7 @@ namespace SoftJail.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
-                    b.Property<decimal>("Bail")
+                    b.Property<decimal?>("Bail")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("CellId")
