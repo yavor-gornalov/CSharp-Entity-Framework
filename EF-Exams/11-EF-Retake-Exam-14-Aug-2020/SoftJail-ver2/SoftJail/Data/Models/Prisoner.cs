@@ -1,8 +1,6 @@
-﻿using System;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static SoftJail.Common.GlobalConstants;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SoftJail.Data.Models;
 
@@ -30,10 +28,10 @@ public class Prisoner
 	public decimal? Bail { get; set; }
 
 	[Required]
-	public int CellId { get; set; }
+	public int? CellId { get; set; }
 
 	[ForeignKey(nameof(CellId))]
-	public Cell Cell { get; set; } = null!;
+	public Cell? Cell { get; set; }
 
 	public ICollection<Mail> Mails { get; set; } = new HashSet<Mail>();
 

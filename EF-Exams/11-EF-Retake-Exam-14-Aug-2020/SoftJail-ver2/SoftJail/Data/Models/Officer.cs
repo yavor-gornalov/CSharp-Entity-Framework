@@ -2,7 +2,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using static SoftJail.Common.GlobalConstants;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SoftJail.Data.Models;
 
